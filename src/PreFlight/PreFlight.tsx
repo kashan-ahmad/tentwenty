@@ -79,12 +79,37 @@ export default function PreFlight() {
         },
         ">-.25"
       )
-      // Then, show the logo
+      // Then, show the logo.
       .to(
         "#Preflight #Logo",
         {
           opacity: 1,
           duration: 0,
+        },
+        ">"
+      )
+      // Then, show the circles.
+      .to(".Circle", {
+        stagger: 0.25,
+        duration: 0.25,
+        opacity: 1,
+      })
+      // Then, hide the logo.
+      .to(
+        "#Preflight #Logo",
+        {
+          opacity: 0,
+          duration: 0.25,
+        },
+        ">+1"
+      )
+      // Then, display the viewport mask.
+      .to(
+        ".ViewportMask",
+        {
+          stagger: 0.25,
+          duration: 0.25,
+          scaleY: 1,
         },
         ">"
       );
@@ -111,17 +136,20 @@ export default function PreFlight() {
         />
       </div>
       <Circle
-        id="CircleLeft"
-        className="fixed top-10 -left-20 scale-110 -rotate-90 lg:scale-125 xl:scale-150 xl:top-32 xl:-left-16"
+        id="CircleTopLeft"
+        className="Circle opacity-0 z-10 fixed -top-28 -left-32 rotate-180 lg:scale-125 lg:-top-32 lg:-left-32 xl:-top-20 xl:-left-28"
       />
       <Circle
-        id="CircleTopLeft"
-        className="fixed -top-28 -left-32 rotate-180 lg:scale-125 lg:-top-32 lg:-left-32 xl:-top-20 xl:-left-28"
+        id="CircleLeft"
+        className="Circle opacity-0 fixed top-10 -left-20 scale-110 -rotate-90 lg:scale-125 xl:scale-150 xl:top-32 xl:-left-16"
       />
       <Circle
         id="CircleBottomRight"
-        className="fixed -bottom-36 -right-2 rotate-180 lg:scale-150 lg:right-12"
+        className="Circle opacity-0 fixed -bottom-36 -right-2 rotate-180 lg:scale-150 lg:right-12"
       />
+      <div className="ViewportMask fixed top-0 right-0 bottom-0 left-0 bg-[#35353a] z-10 scale-y-0 origin-bottom"></div>
+      <div className="ViewportMask fixed top-0 right-0 bottom-0 left-0 bg-[#ff00bb] z-10 scale-y-0 origin-bottom"></div>
+      <div className="ViewportMask fixed top-0 right-0 bottom-0 left-0 bg-[#171719] z-10 scale-y-0 origin-bottom"></div>
     </div>
   );
 }

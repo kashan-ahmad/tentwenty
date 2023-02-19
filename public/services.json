@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Who!Cares",
+    "client": "Who!Cares",
+    "slug": "whocares",
+    "hasApp": true,
+    "hasWebsite": true,
+    "color": "#2EB8E6"
+  },
+  {
+    "id": 2,
+    "name": "Luxury Lifestyle Retail",
+    "client": "Rivoli Group",
+    "slug": "rivoli",
+    "hasApp": false,
+    "hasWebsite": true,
+    "color": "#56576B"
+  },
+  {
+    "id": 3,
+    "name": "Dubai Women Establishment",
+    "client": "Dubai Women Establishment",
+    "slug": "dubai-women-establishment",
+    "hasApp": false,
+    "hasWebsite": true,
+    "color": "#DF5435"
+  },
+  {
+    "id": 4,
+    "name": "Interplanetary Design",
+    "client": "mbrsc",
+    "slug": "mbrsc",
+    "hasApp": false,
+    "hasWebsite": true,
+    "color": "#000002"
+  },
+  {
+    "id": 5,
+    "name": "University of Artifical Intelligence",
+    "client": "mbzuai",
+    "slug": "mbzuai",
+    "hasApp": false,
+    "hasWebsite": true,
+    "color": "#130ce8"
+  }
+]

@@ -2,7 +2,6 @@ import gsap from "gsap";
 import Circle from "~/shapes/Circle";
 import { useEffect, useState } from "react";
 import PreFlightContent from "./PreFlightContent";
-import useViewportMasks from "~/components/ViewportMasks/useViewportMasks";
 
 const entities = [
   "Digital Agency",
@@ -14,17 +13,21 @@ const entities = [
   "350+ Projects",
 ];
 
-export default function PreFlight() {
-  const [index, setIndex] = useState(0);
-
+export type PreFlightProps = {
   /**
-   * Function to manually mask the viewport.
+   * The preflight can't be interrupted, provide a list of methods to execute stackwise when the flight has finished animating.
    */
-  const { animateMasks } = useViewportMasks();
+  stackOfCallbacks: Function[];
+};
 
+const flightTimeline = gsap.timeline();
+
+export default function PreFlight({ stackOfCallbacks }: PreFlightProps) {
+  const [index, setIndex] = useState(0);
+  const [isFlying, setIsFlying] = useState(true);
+
+  // Effect: Animate the whole flight.
   useEffect(() => {
-    const flightTimeline = gsap.timeline();
-
     // First, hide the mask.
     flightTimeline
       // Default mask styles.
@@ -99,19 +102,9 @@ export default function PreFlight() {
         stagger: 0.25,
         duration: 0.25,
         opacity: 1,
+        // Stop the flight as the animation has ended.
+        onComplete: () => setIsFlying(false),
       });
-    //Then, hide the logo.
-    // .to(
-    //   "#Preflight #Logo",
-    //   {
-    //     opacity: 0,
-    //     duration: 0.25,
-    //     onComplete: () => {
-    //       animateMasks();
-    //     },
-    //   },
-    //   ">+1"
-    // );
 
     // Changing the text per interval.
     const interval = setInterval(() => {
@@ -126,6 +119,24 @@ export default function PreFlight() {
       clearInterval(interval);
     };
   }, []);
+
+  // Effect: Observe flight's status and execute the call stack upon end.
+  useEffect(() => {
+    if (!isFlying) {
+      // Hide the logo.
+      flightTimeline.to(
+        "#Preflight #Logo",
+        {
+          opacity: 0,
+          duration: 0.25,
+          onComplete: () => {
+            stackOfCallbacks.forEach((fn) => fn());
+          },
+        },
+        ">+1"
+      );
+    }
+  }, [isFlying]);
 
   return (
     <>

@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // Routes.
 import App from "./App";
-import LandingPage from "./Landing/LandingPage";
+import ServicesPage from "./services/ServicesPage";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LandingPage />,
+        element: <ServicesPage />,
       },
       {
         path: "test",

@@ -13,13 +13,13 @@ const exceptions = ["/"];
  */
 function App() {
   const location = useLocation();
-  const { animateMasks } = useViewportMasks();
+  const { showMasks, hideMasks } = useViewportMasks();
 
   // Effect: Animate the viewport masks on each route transition if it isn't an excepted route.
   useEffect(() => {
     if (exceptions.includes(location.pathname)) return;
 
-    animateMasks();
+    showMasks({ onComplete: hideMasks });
   }, [location.pathname]);
 
   return (

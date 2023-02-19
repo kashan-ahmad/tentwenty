@@ -1,21 +1,19 @@
-import logoSrc from "../assets/sassy-chat.png";
+import LogoLoader from "~/components/Logo/LogoLoader";
 
 type Props = { text: string };
 
 export default function PreFlightContent({ text }: Props) {
   return (
     <div id="Preflight" className="relative">
-      <img
-        alt=""
+      <LogoLoader
         id="Logo"
-        src={logoSrc}
-        className="scale-[.25] z-0 opacity-0 absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4"
+        className="z-0 opacity-0 absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4"
       />
       <svg
         width="900"
         height="200"
         viewBox="0 0 900 200"
-        className="relative text-center z-10"
+        className="relative text-center z-10 text-neutral-800"
         id="Container"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +24,7 @@ export default function PreFlightContent({ text }: Props) {
             y="50%"
             id="Text"
             transform="scale(.985)"
-            fill="#2E2E30"
+            fill="currentColor"
             xmlSpace="preserve"
             fontSize="128"
             fontWeight="600"

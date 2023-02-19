@@ -6,8 +6,8 @@ export default function Circle(props: React.ComponentPropsWithoutRef<"svg">) {
       {...props}
       width="242"
       height="241"
-      fill="none"
       viewBox="0 0 242 241"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -23,8 +23,8 @@ export default function Circle(props: React.ComponentPropsWithoutRef<"svg">) {
           y2="120.399"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#E12179" />
-          <stop offset="1" stopColor="#311996" />
+          <stop stopColor="white" />
+          <stop offset="1" stopColor="#1D5CE5" />
         </linearGradient>
       </defs>
     </svg>

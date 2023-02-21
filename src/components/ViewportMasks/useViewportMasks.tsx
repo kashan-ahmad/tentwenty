@@ -15,29 +15,55 @@ export default function useViewportMasks() {
   function hideMasks({ onComplete }: { onComplete?: Function } = {}) {
     timeline
       // Hide the viewport masks.
-      .set(maskClass, {
-        scaleY: 0,
-        duration: 0,
-      })
+      .set(
+        maskClass,
+        {
+          scaleY: 0,
+          duration: 0,
+        },
+        ">+1"
+      )
       // Hide the interstitial mask.
-      .to(maskID, {
-        scaleX: 0,
-        duration: 0,
-        onComplete: () => onComplete?.(),
-      });
+      .to(
+        maskID,
+        {
+          scaleX: 0,
+          duration: 0,
+          onComplete: () => onComplete?.(),
+        },
+        ">"
+      );
   }
 
   /**
    * Animates the viewport masks with stagger, gracefully covering the whole screen while displaying different layers of colors.
    */
   function showMasks({
+    bruhText,
     onComplete,
-    interstitialColor = "blue",
-  }: { interstitialColor?: "red" | "blue"; onComplete?: Function } = {}) {
+    interstitialClassName = "bg-blue-500",
+  }: {
+    bruhText?: string;
+    onComplete?: Function;
+    interstitialClassName?: string;
+  } = {}) {
     // Set the background color.
-    document
-      .querySelector(maskID)
-      ?.classList.add(`bg-${interstitialColor}-600`);
+    document.querySelector(maskID)?.classList.add(interstitialClassName);
+
+    // Set the custom text, if provided.
+    if (bruhText) {
+      const notice = document.getElementById("ViewportMaskNotice");
+
+      // Display the text container.
+      notice?.removeAttribute("hidden");
+
+      // The actual text element.
+      const bruh = document.getElementById("ViewportMaskNoticeText");
+
+      if (bruh) {
+        bruh.innerHTML = bruhText;
+      }
+    }
 
     timeline
       // Display the viewport masks.
@@ -51,8 +77,8 @@ export default function useViewportMasks() {
       .to(
         maskID,
         {
-          duration: 0.25,
           scaleX: 1,
+          duration: 0.25,
           ease: "power3.in",
           onComplete: () => onComplete?.(),
         },

@@ -18,11 +18,19 @@ export type PreFlightProps = {
    * The preflight can't be interrupted, provide a list of methods to execute stackwise when the flight has finished animating.
    */
   stackOfCallbacks: Function[];
+
+  /**
+   * If the parent is loading something or a process is ongoing. Forces the flight to continue until true.
+   */
+  isParentLoading?: boolean;
 };
 
 const flightTimeline = gsap.timeline();
 
-export default function PreFlight({ stackOfCallbacks }: PreFlightProps) {
+export default function PreFlight({
+  stackOfCallbacks,
+  isParentLoading = false,
+}: PreFlightProps) {
   const [index, setIndex] = useState(0);
   const [isFlying, setIsFlying] = useState(true);
 
@@ -122,7 +130,8 @@ export default function PreFlight({ stackOfCallbacks }: PreFlightProps) {
 
   // Effect: Observe flight's status and execute the call stack upon end.
   useEffect(() => {
-    if (!isFlying) {
+    // When the flight itself has finished animating AND the parent has finished loading.
+    if (!isFlying && !isParentLoading) {
       // Hide the logo.
       flightTimeline.to(
         "#Preflight #Logo",
@@ -136,7 +145,7 @@ export default function PreFlight({ stackOfCallbacks }: PreFlightProps) {
         ">+1"
       );
     }
-  }, [isFlying]);
+  }, [isFlying, isParentLoading]);
 
   return (
     <>

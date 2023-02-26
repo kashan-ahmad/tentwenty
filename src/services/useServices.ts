@@ -11,13 +11,13 @@ export default function useServices() {
     ({ onSuccess, onFailure }: BoolBacks<Service[]>) => {
       setTimeout(() => {
         axios
-          .get<Service[]>("/servics.json")
+          .get<Service[]>("/services.json")
           .then((response) => onSuccess(response.data))
           .catch((error) => {
             onFailure(error.message || strings.DEFAULT_ERROR_MESSAGE);
             console.error(error);
           });
-      }, 10000);
+      }, 1000);
     },
     []
   );

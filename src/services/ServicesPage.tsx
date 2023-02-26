@@ -1,49 +1,27 @@
-import { useEffect, useState } from "react";
-import useServices from "./useServices";
-import PreFlight from "~/components/PreFlight/PreFlight";
-import useViewportMasks from "~/components/ViewportMasks/useViewportMasks";
+import * as React from "react";
+import ServiceComponent from "./ServiceComponent";
+import AnimatedLayout from "~/animations/AnimatedLayout";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Types.
 import type { Service } from "./Service";
-import type { RequestState } from "~/types";
 
 type Props = {};
 
-const stackOfCallbacks: Function[] = [];
-
 export default function ServicesPage({}: Props) {
-  const { getAllServices } = useServices();
-  const { showMasks, hideMasks } = useViewportMasks();
+  const navigate = useNavigate();
+  const { state } = useLocation();
 
-  const [services, setServices] = useState<Service[]>([]);
-  const [requestState, setRequestState] = useState<RequestState>("loading");
+  const services: Service[] = state?.services;
 
-  useEffect(() => {
-    getAllServices({
-      onSuccess: (services) => {
-        setServices(services);
-        setRequestState("loaded");
-        stackOfCallbacks.push(showMasks);
-      },
-      onFailure: (message) => {
-        setRequestState("erred");
-        stackOfCallbacks.push(() =>
-          showMasks({
-            //onComplete: hideMasks,
-            bruhText: message,
-            interstitialClassName: "bg-red-600",
-          })
-        );
-      },
-    });
-  }, []);
+  if (!services) return <></>;
 
   return (
-    <>
-      <PreFlight
-        {...{ stackOfCallbacks }}
-        isParentLoading={requestState === "loading"}
-      />
-    </>
+    <AnimatedLayout>
+      <button onClick={() => navigate("/test")}>Go</button>
+      {services.map((service, i) => (
+        <ServiceComponent key={i} {...service} />
+      ))}
+    </AnimatedLayout>
   );
 }

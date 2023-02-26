@@ -12,15 +12,15 @@ const exceptions = ["/"];
  * The parent component of the tree + The animated route layout.
  */
 function App() {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const { showMasks, hideMasks } = useViewportMasks();
 
   // Effect: Animate the viewport masks on each route transition if it isn't an excepted route.
   useEffect(() => {
-    if (exceptions.includes(location.pathname)) return;
+    if (exceptions.includes(pathname)) return;
 
     showMasks({ onComplete: hideMasks });
-  }, [location.pathname]);
+  }, [pathname]);
 
   return (
     <>

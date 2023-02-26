@@ -55,7 +55,7 @@ export default function useViewportMasks() {
       const notice = document.getElementById("ViewportMaskNotice");
 
       // Display the text container.
-      notice?.removeAttribute("hidden");
+      notice?.classList.remove("hidden");
 
       // The actual text element.
       const bruh = document.getElementById("ViewportMaskNoticeText");

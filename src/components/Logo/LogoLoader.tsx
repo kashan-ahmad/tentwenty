@@ -1,10 +1,10 @@
-import Logo from "./Logo";
 import LogoStar from "./LogoStar";
+import Logo, { LogoProps } from "./Logo";
 
 export default function LogoLoader({
   textClassName = "text-white",
   ...props
-}: Parameters<typeof Logo>[0]) {
+}: LogoProps) {
   return (
     <Logo {...props}>
       <LogoStar className="LogoLoader" />

@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function Star(props: React.ComponentPropsWithoutRef<"svg">) {
+export type StarProps = React.ComponentPropsWithoutRef<"svg">;
+
+export default function Star(props: StarProps) {
   return (
     <svg
       {...props}

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import ServiceComponent from "./ServiceComponent";
-import AnimatedLayout from "~/animations/AnimatedLayout";
+import AnimatedLayout from "@/animations/AnimatedLayout";
 
 // Types.
 import type { Service } from "./Service";

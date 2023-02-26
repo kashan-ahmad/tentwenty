@@ -1,4 +1,4 @@
-import LogoLoader from "~/components/Logo/LogoLoader";
+import LogoLoader from "@/components/Logo/LogoLoader";
 
 type Props = { text: string };
 

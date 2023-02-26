@@ -9,15 +9,13 @@ import type { Service } from "./Service";
 export default function useServices() {
   const getAllServices = useCallback(
     ({ onSuccess, onFailure }: BoolBacks<Service[]>) => {
-      setTimeout(() => {
-        axios
-          .get<Service[]>("/services.json")
-          .then((response) => onSuccess(response.data))
-          .catch((error) => {
-            onFailure(error.message || strings.DEFAULT_ERROR_MESSAGE);
-            console.error(error);
-          });
-      }, 1000);
+      axios
+        .get<Service[]>("/services.json")
+        .then((response) => onSuccess(response.data))
+        .catch((error) => {
+          onFailure(error.message || strings.DEFAULT_ERROR_MESSAGE);
+          console.error(error);
+        });
     },
     []
   );

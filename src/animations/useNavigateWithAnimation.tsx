@@ -1,5 +1,5 @@
 import { NavigateOptions, To, useNavigate } from "react-router-dom";
-import useViewportMasks from "@/components/ViewportMasks/useViewportMasks";
+import useViewportMasks from "~/components/ViewportMasks/useViewportMasks";
 
 export default function useNavigateWithAnimation() {
   const navigate = useNavigate();

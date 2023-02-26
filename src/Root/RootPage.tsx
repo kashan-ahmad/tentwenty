@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import useServices from "@/services/useServices";
-import PreFlight from "@/components/PreFlight/PreFlight";
-import useViewportMasks from "@/components/ViewportMasks/useViewportMasks";
+import useServices from "~/services/useServices";
+import PreFlight from "~/components/PreFlight/PreFlight";
+import useViewportMasks from "~/components/ViewportMasks/useViewportMasks";
 
 // Types.
-import type { RequestState } from "@/types";
+import type { RequestState } from "~/types";
 
 type Props = {};
 

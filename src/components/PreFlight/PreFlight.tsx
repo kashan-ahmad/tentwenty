@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import Circle from "@/shapes/Circle";
+import Circle from "~/shapes/Circle";
 import { useEffect, useState } from "react";
 import PreFlightContent from "./PreFlightContent";
 

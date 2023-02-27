@@ -25,10 +25,10 @@ export default function ServiceComponent({
         aria-label="Service Context"
         className="flex flex-col gap-6 text-3xl 2xl:text-4xl"
       >
-        <span className="font-normal translate-y-14 group-hover:translate-y-0 group-focus:translate-y-0 transition-all duration-300 delay-200">
+        <span className="font-normal translate-y-14 group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-300 delay-200">
           0{index}
         </span>
-        <span className="translate-y-14 group-hover:translate-y-0 group-focus:translate-y-0 transition-all duration-300 delay-[250ms]">
+        <span className="translate-y-14 group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-300 delay-[250ms]">
           {name}
         </span>
       </div>
@@ -47,7 +47,7 @@ export default function ServiceComponent({
       {client && (
         <div
           aria-label="Services Provided"
-          className="2xl:order-1 uppercase text-xs tracking-widest opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-all duration-500 2xl:translate-y-14 2xl:group-hover:translate-y-0 2xl:group-focus:translate-y-0 2xl:transition-all 2xl:duration-300 2xl:delay-200 2xl:text-sm"
+          className="2xl:order-1 uppercase text-xs tracking-widest opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-[transform,opacity] duration-500 2xl:translate-y-14 2xl:group-hover:translate-y-0 2xl:group-focus:translate-y-0  2xl:duration-300 2xl:delay-200 2xl:text-sm"
         >
           {hasApp && "App"}
           {hasApp && hasWebsite && " & "}

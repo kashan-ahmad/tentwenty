@@ -1,11 +1,13 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import useServices from "~/services/useServices";
-import PreFlight from "~/components/PreFlight/PreFlight";
-import useViewportMasks from "~/components/ViewportMasks/useViewportMasks";
+import useServices from "../services/useServices";
+import PreFlight from "../components/PreFlight/PreFlight";
+import useViewportMasks from "../components/ViewportMasks/useViewportMasks";
 
 // Types.
-import type { RequestState } from "~/types";
+import type { RequestState } from "../types";
+import AnimatedLayout from "../animations/AnimatedLayout";
+import { Service } from "../services/Service";
 
 type Props = {};
 
@@ -16,20 +18,23 @@ export default function ServicesPage({}: Props) {
   const { showMasks } = useViewportMasks();
   const { getAllServices } = useServices();
 
+  const [services, setServices] = React.useState<Service[]>([]);
+  const [shouldAnimateOut, setShouldAnimateOut] = React.useState(false);
+
   const [requestState, setRequestState] =
     React.useState<RequestState>("loading");
 
   React.useEffect(() => {
     getAllServices({
       onSuccess: (services) => {
+        setServices(services);
+
         // Set the request state.
         setRequestState("loaded");
 
         stackOfCallbacks.push(() =>
-          // When the animation is done, we want to navigate to the services page.
-          navigate("/services", {
-            state: { services },
-          })
+          // Animate out.
+          setShouldAnimateOut(true)
         );
       },
       onFailure: (message) => {
@@ -45,9 +50,20 @@ export default function ServicesPage({}: Props) {
   }, []);
 
   return (
-    <PreFlight
-      {...{ stackOfCallbacks }}
-      isParentLoading={requestState === "loading"}
-    />
+    <AnimatedLayout
+      shouldAnimateIn={false}
+      {...{ shouldAnimateOut }}
+      onAnimateOut={() =>
+        // When the animation is done, we want to navigate to the services page.
+        navigate("/services", {
+          state: { services },
+        })
+      }
+    >
+      <PreFlight
+        {...{ stackOfCallbacks }}
+        isParentLoading={requestState === "loading"}
+      />
+    </AnimatedLayout>
   );
 }

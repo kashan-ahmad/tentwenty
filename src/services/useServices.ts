@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useCallback } from "react";
-import strings from "~/utils/strings";
+import strings from "../utils/strings";
 
 // Types.
-import type { BoolBacks } from "~/types";
+import type { BoolBacks } from "../types";
 import type { Service } from "./Service";
 
 export default function useServices() {

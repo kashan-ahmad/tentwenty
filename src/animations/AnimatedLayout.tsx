@@ -1,35 +1,66 @@
 import gsap from "gsap";
 import React from "react";
+import { Animator } from "../types";
+import { fadeIn, fadeOut } from "./animations";
 
 type Props = React.PropsWithChildren<React.ComponentPropsWithoutRef<"div">> & {
-  animationProps?: gsap.TweenVars;
+  animateIn?: Animator;
+  animateOut?: Animator;
+
+  shouldAnimateIn?: boolean;
+  shouldAnimateOut?: boolean;
+
+  onAnimateIn?: Function;
+  onAnimateOut?: Function;
 };
 
 export default function AnimatedLayout({
-  animationProps,
-  id = "AnimatedLayout",
-  className = "",
   children,
+  animateIn,
+  animateOut,
+  onAnimateIn,
+  onAnimateOut,
+  className = "",
+  shouldAnimateIn = true,
+  shouldAnimateOut = false,
+  id = "AnimatedLayout",
   ...rest
 }: Props) {
-  React.useEffect(() => {
-    const element = `#${id}`;
+  const element = `#${id}`;
 
-    gsap
-      .timeline({
-        delay: 1.75,
-      })
-      .to(
-        element,
-        animationProps || {
-          opacity: 0,
-          duration: 0.5,
-        }
-      )
-      .set(element, {
-        zIndex: -1,
-      });
-  }, []);
+  React.useEffect(() => {
+    if (!shouldAnimateIn) {
+      // Animate-in in an instant.
+      gsap.set(element, { zIndex: -1 });
+
+      return;
+    }
+
+    const tl = gsap.timeline({
+      delay: 1.75,
+    });
+
+    // Note the fade in on animate out, it's because we're fading out our mask which makes everything fade in.
+    animateIn
+      ? animateIn(element, tl, () => onAnimateIn?.())
+      : fadeOut(element, tl, () => onAnimateIn?.());
+  }, [shouldAnimateIn]);
+
+  React.useEffect(() => {
+    if (!shouldAnimateOut) return;
+
+    const tl = gsap.timeline();
+
+    // Reset the "in" animation.
+    tl.set(element, {
+      opacity: 0,
+    });
+
+    // Note the fade in on animate out, it's because we're fading in our mask which makes everything fade out.
+    animateOut
+      ? animateOut(element, tl, () => onAnimateOut?.())
+      : fadeIn(element, tl, () => onAnimateOut?.());
+  }, [shouldAnimateOut]);
 
   return (
     <>

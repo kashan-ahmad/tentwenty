@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { useEffect, useState } from "react";
 import PreFlightContent from "./PreFlightContent";
-import Circle from "../../Shapes/Circle";
+import Circle from "../../shapes/Circle";
 
 const entities = [
   "Digital Agency",
@@ -132,7 +132,7 @@ export default function PreFlight({
   useEffect(() => {
     // When the flight itself has finished animating AND the parent has finished loading.
     if (!isFlying && !isParentLoading) {
-      stackOfCallbacks.forEach((fn) => fn());
+      setTimeout(() => stackOfCallbacks.forEach((fn) => fn()), 3000);
 
       // Hide the logo.
       // flightTimeline.to(

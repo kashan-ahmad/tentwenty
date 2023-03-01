@@ -8,7 +8,7 @@ export const fadeIn: Animator = (selector, timeline, onComplete) => {
     zIndex: 100,
   }).to(selector, {
     opacity: 1,
-    duration: 1,
+    duration: 0.5,
     ease: "power3.in",
     onComplete,
   });
@@ -19,7 +19,7 @@ export const fadeOut: Animator = (selector, timeline, onComplete) => {
 
   tl.to(selector, {
     opacity: 0,
-    duration: 1,
+    duration: 0.5,
     ease: "power3.in",
   }).set(selector, {
     zIndex: -1,

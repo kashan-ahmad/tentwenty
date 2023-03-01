@@ -1,11 +1,12 @@
 import * as React from "react";
-import ServiceComponent from "./ServiceComponent";
 import { Navigate, useLocation } from "react-router-dom";
 import LocomotiveScroll, { Direction } from "locomotive-scroll";
 
 // Types.
 import type { Service } from "./Service";
 import AnimatedLayout from "../animations/AnimatedLayout";
+import ServiceDescriptiveComponent from "./components/ServiceDescriptiveComponent";
+import ServiceComponent from "./components/ServiceComponent";
 
 type Props = {};
 
@@ -106,9 +107,10 @@ export default function ServicesPage({}: Props) {
       >
         {services.map((service, i) => (
           <li key={i}>
-            <ServiceComponent index={i + 1} {...service} />
+            <ServiceDescriptiveComponent index={i + 1} {...service} />
           </li>
         ))}
+        <ServiceComponent />
       </ul>
     </AnimatedLayout>
   );

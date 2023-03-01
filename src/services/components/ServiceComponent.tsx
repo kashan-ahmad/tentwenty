@@ -44,7 +44,7 @@ export default function ServiceComponent({
       >
         <img
           alt={`Cover photo of ${name}`}
-          src={`/public/services/${slug}/cover.png`}
+          src={`/services/${slug}/cover.png`}
           className="w-full h-full object-contain"
         />
       </div>

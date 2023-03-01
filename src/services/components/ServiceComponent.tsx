@@ -21,7 +21,7 @@ export default function ServiceComponent({
   return (
     <article
       data-bg-color={color}
-      className="Service group bg-white text-black min-w-screen md:min-w-[50vw] xl:min-w-[33.33vw] min-h-screen p-6 md:p-10 2xl:p-14 2xl:pb-0 relative flex flex-col justify-end gap-6 2xl:gap-2 transition-all duration-500 hover:text-white"
+      className="Service group bg-white text-black w-screen md:w-[50vw] xl:w-[33.33vw] min-h-screen p-6 md:p-10 2xl:p-14 2xl:pb-0 relative flex flex-col justify-end gap-6 2xl:gap-2 transition-all duration-500 hover:text-white"
     >
       {/* Context */}
       <div
@@ -33,7 +33,7 @@ export default function ServiceComponent({
             0{index}
           </span>
         )}
-        <span className="translate-y-14 group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-300 delay-[250ms]">
+        <span className="translate-y-14 group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-300 delay-[250ms] whitespace-normal">
           {name}
         </span>
       </div>

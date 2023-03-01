@@ -110,7 +110,12 @@ export default function ServicesPage({}: Props) {
             <ServiceDescriptiveComponent index={i + 1} {...service} />
           </li>
         ))}
-        <ServiceComponent />
+        <ServiceComponent
+          color="black"
+          slug="coffee"
+          id={Math.random()}
+          name="Meet us for coffee"
+        />
       </ul>
     </AnimatedLayout>
   );

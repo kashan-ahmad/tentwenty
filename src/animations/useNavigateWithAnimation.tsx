@@ -15,8 +15,6 @@ export default function useNavigateWithAnimation() {
       ? routerOptions.animation
       : showMasks;
 
-    console.log({ animate });
-
     animate({ onComplete: () => navigate(to, routerOptions) });
   };
 }

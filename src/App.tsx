@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "locomotive-scroll/dist/locomotive-scroll.css";
 import { Outlet, useLocation } from "react-router-dom";
 import ViewportMasks from "./components/ViewportMasks/ViewportMasks";
 import useViewportMasks from "./components/ViewportMasks/useViewportMasks";

@@ -49,3 +49,12 @@
     transform: scale(0.5) rotate(360deg);
   }
 }
+
+/* Modifying locotomive scroll */
+.c-scrollbar {
+  opacity: 0 !important;
+}
+
+.c-scrollbar_thumb {
+  opacity: 0 !important;
+}

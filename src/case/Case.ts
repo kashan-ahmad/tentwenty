@@ -1,4 +1,4 @@
-export type Service = {
+export type Case = {
   id: number;
   name: string;
   slug: string;

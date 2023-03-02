@@ -8,6 +8,9 @@ module.exports = {
       fontFamily: {
         sans: ["Graphik", ...defaultTheme.fontFamily.sans],
       },
+      screens: {
+        "3xl": "1780px",
+      },
     },
   },
   plugins: [],

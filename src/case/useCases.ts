@@ -3,14 +3,14 @@ import { useCallback } from "react";
 import strings from "../utils/strings";
 
 // Types.
+import type { Case } from "./Case";
 import type { BoolBacks } from "../types";
-import type { Service } from "./Service";
 
-export default function useServices() {
-  const getAllServices = useCallback(
-    ({ onSuccess, onFailure }: BoolBacks<Service[]>) => {
+export default function useCases() {
+  const getAllCases = useCallback(
+    ({ onSuccess, onFailure }: BoolBacks<Case[]>) => {
       axios
-        .get<Service[]>("/services.json")
+        .get<Case[]>("/cases.json")
         .then((response) => onSuccess(response.data))
         .catch((error) => {
           onFailure(error.message || strings.DEFAULT_ERROR_MESSAGE);
@@ -21,6 +21,6 @@ export default function useServices() {
   );
 
   return {
-    getAllServices,
+    getAllCases,
   };
 }

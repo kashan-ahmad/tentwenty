@@ -40,10 +40,21 @@ export default function AnimatedLayout({
       delay: 1.75,
     });
 
+    const callback = () => {
+      console.log("Called");
+
+      // So it goes beyond everyone.
+      tl.set(element, {
+        zIndex: -100,
+      });
+
+      onAnimateIn?.();
+    };
+
     // Note the fade in on animate out, it's because we're fading out our mask which makes everything fade in.
     animateIn
-      ? animateIn(element, tl, () => onAnimateIn?.())
-      : fadeOut(element, tl, () => onAnimateIn?.());
+      ? animateIn(element, tl, callback)
+      : fadeOut(element, tl, callback);
   }, [shouldAnimateIn]);
 
   React.useEffect(() => {
@@ -56,6 +67,11 @@ export default function AnimatedLayout({
       opacity: 0,
     });
 
+    // So it shows above everyone.
+    tl.set(element, {
+      zIndex: 100,
+    });
+
     // Note the fade in on animate out, it's because we're fading in our mask which makes everything fade out.
     animateOut
       ? animateOut(element, tl, () => onAnimateOut?.())
@@ -64,13 +80,13 @@ export default function AnimatedLayout({
 
   return (
     <>
-      {children}
       <div
         {...rest}
         id={id}
         aria-hidden="true"
         className={`bg-neutral-900 fixed top-0 right-0 bottom-0 left-0 ${className}`}
       />
+      {children}
     </>
   );
 }

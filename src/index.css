@@ -26,7 +26,7 @@
   src: url("/fonts/GraphikMediumItalic.woff2") format("woff2");
 }
 
-/* .Service:is(:hover, :focus)::after {
+/* .Case:is(:hover, :focus)::after {
   content: "";
   position: absolute;
   top: 0;
@@ -40,6 +40,15 @@
   animation: spin-half 1.5s linear infinite;
 }
 
+/* Modifying locotomive scroll */
+.c-scrollbar {
+  opacity: 0 !important;
+}
+
+.c-scrollbar_thumb {
+  opacity: 0 !important;
+}
+
 @keyframes spin-half {
   from {
     transform: scale(0.5) rotate(0deg);
@@ -48,13 +57,4 @@
   to {
     transform: scale(0.5) rotate(360deg);
   }
-}
-
-/* Modifying locotomive scroll */
-.c-scrollbar {
-  opacity: 0 !important;
-}
-
-.c-scrollbar_thumb {
-  opacity: 0 !important;
 }

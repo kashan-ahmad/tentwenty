@@ -1,33 +1,33 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import useServices from "../services/useServices";
+import useCases from "../case/useCases";
 import PreFlight from "../components/PreFlight/PreFlight";
 import useViewportMasks from "../components/ViewportMasks/useViewportMasks";
 
 // Types.
 import type { RequestState } from "../types";
 import AnimatedLayout from "../animations/AnimatedLayout";
-import { Service } from "../services/Service";
+import { Case } from "../case/Case";
 
 type Props = {};
 
 const stackOfCallbacks: Function[] = [];
 
-export default function ServicesPage({}: Props) {
+export default function CasesPage({}: Props) {
   const navigate = useNavigate();
   const { showMasks } = useViewportMasks();
-  const { getAllServices } = useServices();
+  const { getAllCases } = useCases();
 
-  const [services, setServices] = React.useState<Service[]>([]);
+  const [cases, setCases] = React.useState<Case[]>([]);
   const [shouldAnimateOut, setShouldAnimateOut] = React.useState(false);
 
   const [requestState, setRequestState] =
     React.useState<RequestState>("loading");
 
   React.useEffect(() => {
-    getAllServices({
-      onSuccess: (services) => {
-        setServices(services);
+    getAllCases({
+      onSuccess: (cases) => {
+        setCases(cases);
 
         // Set the request state.
         setRequestState("loaded");
@@ -52,11 +52,11 @@ export default function ServicesPage({}: Props) {
   return (
     <AnimatedLayout
       shouldAnimateIn={false}
-      {...{ shouldAnimateOut }}
+      shouldAnimateOut={shouldAnimateOut}
       onAnimateOut={() =>
-        // When the animation is done, we want to navigate to the services page.
-        navigate("/services", {
-          state: { services },
+        // When the animation is done, we want to navigate to the cases page.
+        navigate("/cases", {
+          state: { cases },
         })
       }
     >

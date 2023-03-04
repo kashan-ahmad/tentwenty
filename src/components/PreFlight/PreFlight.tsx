@@ -1,7 +1,8 @@
 import gsap from "gsap";
+import { zIndex } from "../../config";
+import Circle from "../../shapes/Circle";
 import { useEffect, useState } from "react";
 import PreFlightContent from "./PreFlightContent";
-import Circle from "../../Shapes/Circle";
 
 const entities = [
   "Digital Agency",
@@ -141,7 +142,6 @@ export default function PreFlight({
       //     opacity: 0,
       //     duration: 0.25,
       //     onComplete: () => {
-
       //     },
       //   },
       //   ">+1"
@@ -154,7 +154,10 @@ export default function PreFlight({
       <div className="sr-only">Loading...</div>
       <div
         aria-hidden="true"
-        className="min-h-screen min-w-screen font-semibold overflow-hidden"
+        style={{
+          zIndex: zIndex.MASK_LAYOUT_SHOWN,
+        }}
+        className="fixed h-screen w-screen top-0 left-0 font-semibold overflow-hidden bg-neutral-900"
       >
         <div className="origin-center scale-[.4] sm:scale-75 md:scale-90 lg:scale-110 xl:scale-125 2xl:scale-[1.5] absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4">
           <PreFlightContent
@@ -163,14 +166,23 @@ export default function PreFlight({
         </div>
         <Circle
           id="CircleTopLeft"
-          className="Circle opacity-0 z-10 fixed -top-28 -left-32 rotate-180 lg:scale-125 lg:-top-32 lg:-left-32 xl:-top-20 xl:-left-28"
+          style={{
+            zIndex: zIndex.MASK_LAYOUT_SHOWN + 1,
+          }}
+          className="Circle opacity-0 fixed -top-28 -left-32 rotate-180 lg:scale-125 lg:-top-32 lg:-left-32 xl:-top-20 xl:-left-28"
         />
         <Circle
           id="CircleLeft"
+          style={{
+            zIndex: zIndex.MASK_LAYOUT_SHOWN,
+          }}
           className="Circle opacity-0 fixed top-10 -left-20 scale-110 -rotate-90 lg:scale-125 xl:scale-150 xl:top-32 xl:-left-16"
         />
         <Circle
           id="CircleBottomRight"
+          style={{
+            zIndex: zIndex.MASK_LAYOUT_SHOWN + 2,
+          }}
           className="Circle opacity-0 fixed -bottom-36 -right-2 rotate-180 lg:scale-150 lg:right-12"
         />
       </div>

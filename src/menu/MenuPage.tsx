@@ -1,40 +1,31 @@
 import React from "react";
-import { gsap } from "gsap";
-import { fadeIn, fadeOut } from "../animations/animations";
+import MenuContext from "./context/MenuContext";
 import MenuSVGComponent from "./components/MenuSVGComponent";
 import MenuItemsComponent from "./components/MenuItemsComponent";
 import MenuHeaderComponent from "./components/MenuHeaderComponent";
+import { zIndex } from "../config";
 
 type Props = {};
 
 export default function MenuPage({}: Props) {
-  React.useEffect(() => {
-    const tl = gsap.timeline();
-
-    // Hide the stroke of the menu.
-    gsap.set("#MenuSVG #stroke", {
-      opacity: 0,
-    });
-
-    fadeIn("#MenuSVG", tl, () => {
-      // Fade in the stroke.
-      fadeIn("#MenuSVG #stroke", tl, () => {
-        // Fade out the stroke.
-        fadeOut("#MenuSVG #stroke", tl);
-      });
-    });
-  }, []);
+  const [isMenuExpanded, setIsMenuExpanded] = React.useState(false);
 
   return (
-    <>
+    <MenuContext.Provider value={{ isMenuExpanded, setIsMenuExpanded }}>
       <MenuHeaderComponent />
-      <div className="fixed w-screen h-screen top-0 left-0 bg-black">
+      <div
+        id="MenuPage"
+        style={{
+          zIndex: zIndex.HIDDEN,
+        }}
+        className="opacity-0 fixed w-screen h-screen top-0 left-0 bg-black"
+      >
         <MenuSVGComponent
           id="MenuSVG"
           className="opacity-0 -z-10 w-screen scale-75 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         />
         <MenuItemsComponent />
       </div>
-    </>
+    </MenuContext.Provider>
   );
 }

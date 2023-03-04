@@ -1,24 +1,28 @@
 import React from "react";
 import { zIndex } from "../../config";
-import LogoDark from "../../components/Logo/LogoDark";
-import LogoDefault from "../../components/Logo/LogoDefault";
 import { Link } from "react-router-dom";
+import MenuContext from "../context/MenuContext";
+import MenuBurgerComponent from "./MenuBurgerComponent";
 
-export type MenuHeaderComponentProps = {
-  isMenuExpanded?: boolean;
-};
+export default function MenuHeaderComponent() {
+  const { isMenuExpanded } = React.useContext(MenuContext);
 
-export default function MenuHeaderComponent({
-  isMenuExpanded,
-}: MenuHeaderComponentProps) {
+  const logoSrc = isMenuExpanded
+    ? "/images/logo-white.png"
+    : "/images/logo-black.png";
+
   return (
     <header
       style={{
-        zIndex: zIndex.MENU_SHOWN,
+        zIndex: zIndex.MENU_HEADER_SHOWN,
       }}
+      data-is-expanded={isMenuExpanded}
       className="fixed w-screen top-0 left-0 p-8 flex items-center justify-between"
     >
-      <Link to="/">{isMenuExpanded ? <LogoDark /> : <LogoDefault />}</Link>
+      <Link to="/" id="MenuLogo" className="w-28">
+        <img src={logoSrc} alt="" className="w-full" />
+      </Link>
+      <MenuBurgerComponent />
     </header>
   );
 }

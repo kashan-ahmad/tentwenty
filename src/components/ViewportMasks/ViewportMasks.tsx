@@ -1,4 +1,5 @@
 import React from "react";
+import { zIndex } from "../../config";
 
 export default function ViewportMasks({
   className = "ViewportMask",
@@ -8,14 +9,23 @@ export default function ViewportMasks({
   return (
     <div {...props} aria-hidden="true" className="absolute">
       <div
-        className={`fixed top-0 right-0 bottom-0 left-0 bg-neutral-800 z-10 scale-y-0 origin-bottom ${className}`}
+        style={{
+          zIndex: zIndex.MASK_PAGE_SHOWN,
+        }}
+        className={`fixed top-0 right-0 bottom-0 left-0 bg-neutral-800 scale-y-0 origin-bottom ${className}`}
       ></div>
       <div
+        style={{
+          zIndex: zIndex.MASK_PAGE_SHOWN + 1,
+        }}
         id={id}
-        className={`fixed top-0 right-0 bottom-0 left-0 z-10 scale-x-0 origin-right`}
+        className={`fixed top-0 right-0 bottom-0 left-0 scale-x-0 origin-right`}
       ></div>
       <div
-        className={`fixed top-0 right-0 bottom-0 left-0 bg-neutral-900 z-10 scale-y-0 origin-bottom grid place-items-center ${className}`}
+        style={{
+          zIndex: zIndex.MASK_PAGE_SHOWN + 2,
+        }}
+        className={`fixed top-0 right-0 bottom-0 left-0 bg-neutral-900 scale-y-0 origin-bottom grid place-items-center ${className}`}
       >
         <div
           id="ViewportMaskNotice"

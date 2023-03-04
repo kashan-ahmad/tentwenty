@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { fadeIn, fadeOut } from "../animations/animations";
 import MenuSVGComponent from "./components/MenuSVGComponent";
 import MenuItemsComponent from "./components/MenuItemsComponent";
+import MenuHeaderComponent from "./components/MenuHeaderComponent";
 
 type Props = {};
 
@@ -25,12 +26,15 @@ export default function MenuPage({}: Props) {
   }, []);
 
   return (
-    <div className="relative">
-      <MenuSVGComponent
-        id="MenuSVG"
-        className="opacity-0 -z-10 w-screen scale-75 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-      />
-      <MenuItemsComponent />
-    </div>
+    <>
+      <MenuHeaderComponent />
+      <div className="fixed w-screen h-screen top-0 left-0 bg-black">
+        <MenuSVGComponent
+          id="MenuSVG"
+          className="opacity-0 -z-10 w-screen scale-75 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        />
+        <MenuItemsComponent />
+      </div>
+    </>
   );
 }

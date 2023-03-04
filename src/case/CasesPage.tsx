@@ -1,5 +1,4 @@
 import * as React from "react";
-import MenuPage from "../menu/MenuPage";
 import CaseComponent from "./components/CaseComponent";
 import { Navigate, useLocation } from "react-router-dom";
 import AnimatedLayout from "../animations/AnimatedLayout";
@@ -108,9 +107,8 @@ export default function CasesPage({}: Props) {
   if (!cases) return <Navigate to="/" />;
 
   return (
-    <AnimatedLayout>
-      <MenuPage />
-      {/* <ul
+    <AnimatedLayout onAnimateIn={() => console.log("Animated In")}>
+      <ul
         id="CaseList"
         data-scroll-container
         className="overflow-auto h-screen md:min-w-[500vw] !flex flex-col md:flex-row md:overflow-y-hidden"
@@ -126,7 +124,7 @@ export default function CasesPage({}: Props) {
           id={Math.random()}
           name="Meet us for coffee"
         />
-      </ul> */}
+      </ul>
     </AnimatedLayout>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import MenuPage from "./menu/MenuPage";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import { Outlet, useLocation } from "react-router-dom";
 import ViewportMasks from "./components/ViewportMasks/ViewportMasks";
@@ -26,6 +27,7 @@ function App() {
   return (
     <>
       <Outlet />
+      <MenuPage />
       <ViewportMasks />
     </>
   );

@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import { zIndex } from "../../config";
 
 /**
  * Timeline for the route masks.

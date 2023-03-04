@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import React from "react";
 import { Animator } from "../types";
+import { duration, zIndex } from "../config";
 import { fadeIn, fadeOut } from "./animations";
 
 type Props = React.PropsWithChildren<React.ComponentPropsWithoutRef<"div">> & {
@@ -26,56 +27,57 @@ export default function AnimatedLayout({
   id = "AnimatedLayout",
   ...rest
 }: Props) {
-  const element = `#${id}`;
+  const layout = `#${id}`;
 
+  // Effect: Hide the layout/Animate-in the underneath content.
   React.useEffect(() => {
     if (!shouldAnimateIn) {
       // Animate-in in an instant.
-      gsap.set(element, { zIndex: -1 });
+      gsap.set(layout, { zIndex: -1 });
 
       return;
     }
 
+    // There's an initial delay before the layout starts hiding and the content starts showing, this is to let the route animation get done with.
     const tl = gsap.timeline({
-      delay: 1.75,
+      delay: duration.DELAY_ANIMATE_IN,
+    });
+
+    // Reset the "out" animation.
+    gsap.set(layout, {
+      opacity: 1,
+      zIndex: zIndex.MASK_LAYOUT_SHOWN,
     });
 
     const callback = () => {
-      console.log("Called");
-
-      // So it goes beyond everyone.
-      tl.set(element, {
-        zIndex: -100,
+      gsap.set(layout, {
+        // So it goes beyond everything.
+        zIndex: zIndex.HIDDEN,
       });
 
       onAnimateIn?.();
     };
 
-    // Note the fade in on animate out, it's because we're fading out our mask which makes everything fade in.
-    animateIn
-      ? animateIn(element, tl, callback)
-      : fadeOut(element, tl, callback);
+    // Note the fade in on animate out, it's because we're fading out our layout which makes everything fade in.
+    animateIn ? animateIn(layout, tl, callback) : fadeOut(layout, tl, callback);
   }, [shouldAnimateIn]);
 
+  // Effect: Show the layout/Animate-out the underneath content.
   React.useEffect(() => {
     if (!shouldAnimateOut) return;
 
     const tl = gsap.timeline();
 
     // Reset the "in" animation.
-    tl.set(element, {
+    gsap.set(layout, {
       opacity: 0,
-    });
-
-    // So it shows above everyone.
-    tl.set(element, {
-      zIndex: 100,
+      zIndex: zIndex.MASK_LAYOUT_SHOWN,
     });
 
     // Note the fade in on animate out, it's because we're fading in our mask which makes everything fade out.
     animateOut
-      ? animateOut(element, tl, () => onAnimateOut?.())
-      : fadeIn(element, tl, () => onAnimateOut?.());
+      ? animateOut(layout, tl, () => onAnimateOut?.())
+      : fadeIn(layout, tl, () => onAnimateOut?.());
   }, [shouldAnimateOut]);
 
   return (

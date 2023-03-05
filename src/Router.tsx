@@ -23,14 +23,6 @@ const router = createBrowserRouter([
         path: "cases/:slug",
         element: <CasePage />,
       },
-      {
-        path: "test",
-        element: (
-          <div>
-            <>Hello World</>
-          </div>
-        ),
-      },
     ],
   },
 ]);

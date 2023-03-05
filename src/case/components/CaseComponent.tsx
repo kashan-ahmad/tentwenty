@@ -5,7 +5,6 @@ import useNavigateWithAnimation from "../../animations/useNavigateWithAnimation"
 export type CaseComponentProps = React.PropsWithChildren<
   Case & {
     index?: number;
-    isClickable?: boolean;
   }
 >;
 
@@ -16,27 +15,19 @@ export default function CaseComponent({
   client,
   hasApp,
   hasWebsite,
-  isClickable = false,
   color,
   index,
   children,
 }: CaseComponentProps) {
   const navigate = useNavigateWithAnimation();
 
-  const clickableProps = isClickable && {
-    style: {
-      cursor: "pointer",
-    },
-    tabIndex: 0,
-    title: "Show case details",
-    onClick: () => navigate(slug),
-  };
-
   return (
     <article
-      {...clickableProps}
+      tabIndex={0}
       data-bg-color={color}
-      className="Case group bg-white text-black w-screen md:w-[50vw] xl:w-[33.33vw] min-h-screen p-6 md:p-10 2xl:p-14 2xl:pb-0 relative flex flex-col justify-end gap-6 2xl:gap-2 transition-all duration-500 hover:text-white"
+      title="Show case details"
+      onClick={() => navigate(slug)}
+      className="Case group bg-white text-black w-screen cursor-pointer md:w-[50vw] xl:w-[33.33vw] min-h-screen p-6 md:p-10 2xl:p-14 2xl:pb-0 relative flex flex-col justify-end gap-6 2xl:gap-2 transition-all duration-500 hover:text-white"
     >
       {/* Context */}
       <div

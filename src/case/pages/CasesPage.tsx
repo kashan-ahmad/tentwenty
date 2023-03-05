@@ -105,19 +105,16 @@ export default function CasesPage({}: Props) {
 
   if (!cases) return <Navigate to="/" />;
 
-  const firstCase = cases.splice(0, 1);
-
   return (
-    <AnimatedLayout onAnimateIn={() => console.log("Animated In")}>
+    <AnimatedLayout>
       <ul
         id="CaseList"
         data-scroll-container
         className="overflow-auto h-screen md:min-w-[500vw] !flex flex-col md:flex-row md:overflow-y-hidden"
       >
-        <CaseDescriptiveComponent index={1} isClickable {...firstCase[0]} />
         {cases.map((_case, i) => (
           <li key={i}>
-            <CaseDescriptiveComponent index={i + 2} {..._case} />
+            <CaseDescriptiveComponent index={i + 1} {..._case} />
           </li>
         ))}
         <CaseComponent

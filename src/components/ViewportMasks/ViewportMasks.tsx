@@ -32,10 +32,13 @@ export default function ViewportMasks({
           className="flex hidden justify-center items-center flex-col gap-8 p-8"
         >
           <img alt="" src="/ahhh.gif" loading="lazy" width="300px" />
-          <div id="ViewportMaskNoticeText" className="text-2xl"></div>
+          <div
+            id="ViewportMaskNoticeText"
+            className="text-2xl text-white"
+          ></div>
           <button
             onClick={() => window.location.reload()}
-            className="py-4 px-8 bg-blue-500 hover:bg-blue-600 focus:bg-blue-600"
+            className="py-4 px-8 bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 text-white"
           >
             Start Over 😆
           </button>

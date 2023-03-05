@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import strings from "../utils/strings";
 
 // Types.
-import type { Case } from "./Case";
+import type { Case, CaseData } from "./Case";
 import type { BoolBacks } from "../types";
 
 export default function useCases() {
@@ -20,7 +20,29 @@ export default function useCases() {
     []
   );
 
+  const getCaseData = useCallback(
+    ({
+      slug,
+      onSuccess,
+      onFailure,
+    }: BoolBacks<CaseData> & {
+      slug: Case["slug"];
+    }) => {
+      setTimeout(() => {
+        axios
+          .get<CaseData>(`/cases/${slug}/${slug}.json`)
+          .then((response) => onSuccess(response.data))
+          .catch((error) => {
+            onFailure(error.message || strings.DEFAULT_ERROR_MESSAGE);
+            console.error(error);
+          });
+      }, 3000);
+    },
+    []
+  );
+
   return {
     getAllCases,
+    getCaseData,
   };
 }

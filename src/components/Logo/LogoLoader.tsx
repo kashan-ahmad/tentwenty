@@ -6,7 +6,7 @@ export default function LogoLoader({
   ...props
 }: LogoProps) {
   return (
-    <Logo {...props}>
+    <Logo {...props} textClassName={textClassName}>
       <LogoStar className="LogoLoader" />
     </Logo>
   );

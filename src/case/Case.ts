@@ -8,66 +8,65 @@ export type Case = {
   color: string;
 };
 
-declare module Case {
-  export interface Header {
-    video: string;
-    photo: string;
-    title: string;
-  }
+export interface CaseHeader {
+  video: string;
+  photo: string;
+  title: string;
+}
 
-  export interface Hero {
-    tagLine: string;
-  }
+export interface CaseHero {
+  tagLine: string;
+}
 
-  export interface Link {
-    text: string;
-    href: string;
-  }
+export interface CaseLink {
+  text: string;
+  href: string;
+}
 
-  export interface Meta {
-    client: string;
-    deliverables: string;
-    links: Link[];
-  }
+export interface CaseMeta {
+  color: string;
+  client: string;
+  deliverables: string;
+  links: CaseLink[];
+}
 
-  export interface Section {
-    title: string;
-    description: string;
-    video: string;
-    photo: string;
-  }
+export interface CaseSection {
+  title: string;
+  description: string;
+  video: string;
+  photo: string;
+}
 
-  export interface Content {
-    title?: string;
-    tagLine?: string;
-    paragraphs?: string[];
-    sections: Section[];
-  }
+export interface CaseContent {
+  title?: string;
+  tagLine?: string;
+  paragraphs?: string[];
+  sections: CaseSection[];
+}
 
-  export interface Mask {
-    color: string;
-    photo: string;
-  }
+export interface CaseMask {
+  color: string;
+  photo: string;
+}
 
-  export interface Footer {
-    title: string;
-    links: Link[];
-  }
+export interface CaseFooter {
+  title: string;
+  links: CaseLink[];
+}
 
-  export interface Tab {
-    name: string;
-    video: string;
-    description: string;
-    screenshot: string;
-    content: Content;
-    mask: Mask;
-    footer: Footer;
-  }
+export interface CaseTab {
+  name: string;
+  video: string;
+  description: string;
+  screenshot: string;
+  content: CaseContent;
+  mask: CaseMask;
+  footer: CaseFooter;
+}
 
-  export interface CaseData {
-    header: Header;
-    hero: Hero;
-    meta: Meta;
-    tabs: Tab[];
-  }
+export interface CaseData {
+  header: CaseHeader;
+  hero: CaseHero;
+  meta: CaseMeta;
+  tabs: CaseTab[];
 }

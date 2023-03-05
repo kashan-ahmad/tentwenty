@@ -5,7 +5,7 @@ export default function LogoStar({ className = "", ...props }: StarProps) {
     <Star
       {...props}
       id="LogoStar"
-      className={`scale-50 text-blue-600 absolute -top-10 -right-24 ${className}`}
+      className={`scale-50 text-blue-600 absolute -top-10 -right-20 ${className}`}
     />
   );
 }

@@ -1,8 +1,8 @@
 import gsap from "gsap";
 import { zIndex } from "../../config";
-import Circle from "../../shapes/Circle";
 import { useEffect, useState } from "react";
 import PreFlightContent from "./PreFlightContent";
+import Circle from "../../shapes/Circle";
 
 const entities = [
   "Digital Agency",

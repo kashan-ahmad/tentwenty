@@ -1,4 +1,4 @@
-import Star, { StarProps } from "../../Shapes/Star";
+import Star, { StarProps } from "../../shapes/Star";
 
 export default function LogoStar({ className = "", ...props }: StarProps) {
   return (

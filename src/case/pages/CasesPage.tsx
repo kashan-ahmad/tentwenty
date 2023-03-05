@@ -1,12 +1,13 @@
 import * as React from "react";
-import CaseComponent from "./components/CaseComponent";
+import { locoOptions } from "../../config";
+import CaseComponent from "../components/CaseComponent";
 import { Navigate, useLocation } from "react-router-dom";
-import AnimatedLayout from "../animations/AnimatedLayout";
-import CaseDescriptiveComponent from "./components/CaseDescriptiveComponent";
+import AnimatedLayout from "../../animations/AnimatedLayout";
+import CaseDescriptiveComponent from "../components/CaseDescriptiveComponent";
 import LocomotiveScroll, { Direction } from "locomotive-scroll";
 
 // Types.
-import type { Case } from "./Case";
+import type { Case } from "../Case";
 
 type Props = {};
 
@@ -51,10 +52,8 @@ export default function CasesPage({}: Props) {
 
     const initScroll = () =>
       new LocomotiveScroll({
+        ...locoOptions,
         el: caseList,
-        lerp: 0.05,
-        smooth: true,
-        multiplier: 1.25,
         direction: getDirection(),
       });
 
@@ -106,6 +105,8 @@ export default function CasesPage({}: Props) {
 
   if (!cases) return <Navigate to="/" />;
 
+  const firstCase = cases.splice(0, 1);
+
   return (
     <AnimatedLayout onAnimateIn={() => console.log("Animated In")}>
       <ul
@@ -113,9 +114,10 @@ export default function CasesPage({}: Props) {
         data-scroll-container
         className="overflow-auto h-screen md:min-w-[500vw] !flex flex-col md:flex-row md:overflow-y-hidden"
       >
+        <CaseDescriptiveComponent index={1} isClickable {...firstCase[0]} />
         {cases.map((_case, i) => (
           <li key={i}>
-            <CaseDescriptiveComponent index={i + 1} {..._case} />
+            <CaseDescriptiveComponent index={i + 2} {..._case} />
           </li>
         ))}
         <CaseComponent

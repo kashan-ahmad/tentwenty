@@ -10,20 +10,20 @@ export default function ViewportMasks({
     <div {...props} aria-hidden="true" className="absolute">
       <div
         style={{
-          zIndex: zIndex.MASK_PAGE_SHOWN,
+          zIndex: zIndex.MASK_VIEWPORT_SHOWN,
         }}
         className={`fixed top-0 right-0 bottom-0 left-0 bg-neutral-800 scale-y-0 origin-bottom ${className}`}
       ></div>
       <div
         style={{
-          zIndex: zIndex.MASK_PAGE_SHOWN + 1,
+          zIndex: zIndex.MASK_VIEWPORT_SHOWN + 1,
         }}
         id={id}
         className={`fixed top-0 right-0 bottom-0 left-0 scale-x-0 origin-right`}
       ></div>
       <div
         style={{
-          zIndex: zIndex.MASK_PAGE_SHOWN + 2,
+          zIndex: zIndex.MASK_VIEWPORT_SHOWN + 2,
         }}
         className={`fixed top-0 right-0 bottom-0 left-0 bg-neutral-900 scale-y-0 origin-bottom grid place-items-center ${className}`}
       >

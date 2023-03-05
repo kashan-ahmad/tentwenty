@@ -46,7 +46,7 @@ export default function AnimatedLayout({
     // Reset the "out" animation.
     gsap.set(layout, {
       opacity: 1,
-      zIndex: zIndex.MASK_LAYOUT_SHOWN,
+      zIndex: zIndex.MASK_PAGE_SHOWN,
     });
 
     const callback = () => {
@@ -71,7 +71,7 @@ export default function AnimatedLayout({
     // Reset the "in" animation.
     gsap.set(layout, {
       opacity: 0,
-      zIndex: zIndex.MASK_LAYOUT_SHOWN,
+      zIndex: zIndex.MASK_PAGE_SHOWN,
     });
 
     // Note the fade in on animate out, it's because we're fading in our mask which makes everything fade out.

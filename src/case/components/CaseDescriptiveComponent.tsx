@@ -5,6 +5,7 @@ export default function CaseDescriptiveComponent({
   client,
   hasApp,
   hasWebsite,
+  children,
   ...props
 }: CaseComponentProps) {
   return (
@@ -20,6 +21,7 @@ export default function CaseDescriptiveComponent({
           for {client}
         </div>
       )}
+      {children}
     </CaseComponent>
   );
 }

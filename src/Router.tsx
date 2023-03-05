@@ -3,7 +3,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Routes.
 import App from "./App";
 import RootPage from "./Root/RootPage";
-import CasesPage from "./case/CasesPage";
+import CasesPage from "./case/pages/CasesPage";
+import CasePage from "./case/pages/CasePage/CasePage";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "cases",
         element: <CasesPage />,
+      },
+      {
+        path: "cases/:slug",
+        element: <CasePage />,
       },
       {
         path: "test",

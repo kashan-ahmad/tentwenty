@@ -1,0 +1,103 @@
+{
+  "header": {
+    "video": "https://player.vimeo.com/external/435731808.hd.mp4?s=7308806c3ff38dcc7b9eadf325f5b15e7c4027d1&amp;profile_id=169",
+    "photo": "https://www.tentwenty.me/application/files/cache/40116cdbd0541b7163afd3c17e837c4b.jpg",
+    "title": "Who!Cares"
+  },
+  "hero": {
+    "tagLine": "When we realised that the world was changing (and not necessarily for the better), we decided it was time to take action in whatever way we could. We decided as a company that we had to use our combined skill set to create something to help people. We had several ideas but the one that really stuck out was who!cares. The rest, as they say, is history."
+  },
+  "meta": {
+    "client": "Everyone (we made this for you)",
+    "deliverables": "App (and, hopefully, a lot of smiles)",
+    "links": [
+      {
+        "text": "App Store",
+        "href": "https://apps.apple.com/in/app/who-cares/id1508421565"
+      },
+      {
+        "text": "Google Play",
+        "href": "https://play.google.com/store/apps/details?id=com.tentwenty.whocares"
+      }
+    ]
+  },
+  "tabs": [
+    {
+      "name": "App",
+      "video": "https://player.vimeo.com/external/435448731.hd.mp4?s=ef6d33000f39c2e3a6c3bf79b82bfb28a403b12b&profile_id=175",
+      "description": "who!cares is a super simple app where you can check in on the people you love and care about on a daily basis. You (and they) submit quick daily status updates to let everyone else in the space know how they are feeling that day. A place where you can create safe spaces with the people you care about the most, where every day you can instantly see how they are feeling that day. Each user can instantly update their status quite literally with one simple tap.",
+      "screenshot": "https://www.tentwenty.me/application/files/8915/9402/1804/Phones_1.jpg",
+      "content": {
+        "title": "The Vision",
+        "tagLine": "Connecting People",
+        "paragraphs": [
+          "who!cares is a mobile app created with one simple passion - connecting people. Never have so many people been so far apart - even when they might only be 2 minutes away (physically). Our current world has created a situation where the basic greeting of “how are you?” has been stripped from our everyday vocabulary. This is where who!cares comes in.",
+          "With who!cares, staying up to date is super simple. Everyone in your space updates their status daily. If there are lots of people feeling great, that's awesome! However if there are one or two people not feeling 100% that day, you can instantly check-up with them by giving them a call or SMS.",
+          "For friends and families spread across the world in different time zones, to friends and families who are in the same city or on the same street, this app makes it easy to know how everyone is feeling that day. From families to sports clubs, businesses to religious groups and friends, this app is for everyone."
+        ],
+        "sections": [
+          {
+            "title": "Daily Check-in",
+            "description": "Easy and effortless. All you have to do is tap one simple status update at a daily time of your choosing to let the rest of the people inside your private space know how you're feeling that day. So simple, yet so reassuring to your circle of loved ones.",
+            "video": "https://player.vimeo.com/external/435486323.hd.mp4?s=de02f50accc21b7029d716c9debdebfbf29a0dc7&profile_id=174"
+          },
+          {
+            "title": "Creating Spaces",
+            "description": "You create a space, a safe space, and only you can invite people using the magic link. You can share this link any way you want. The magic link is safe, secure and can only be opened by the recipient.",
+            "video": "https://player.vimeo.com/external/435486349.hd.mp4?s=32a896424ece476d2a86db4aa9b838ededaf2bed&profile_id=174"
+          }
+        ]
+      },
+      "mask": {
+        "color": "#2CB4E4",
+        "photo": "https://www.tentwenty.me/application/files/6415/9393/6470/Persp_phones.jpg"
+      },
+      "footer": {
+        "title": "Live App",
+        "links": [
+          {
+            "text": "App Store",
+            "href": "https://apps.apple.com/in/app/who-cares/id1508421565"
+          },
+          {
+            "text": "Google Play",
+            "href": "https://play.google.com/store/apps/details?id=com.tentwenty.whocares"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Website",
+      "video": "https://player.vimeo.com/external/435648932.hd.mp4?s=f9846422dd32e193aad46cf7d37387d2e6d2f03f&profile_id=174",
+      "description": "who!cares is a super simple app where you can check in on the people you love and care about on a daily basis. You (and they) submit quick daily status updates to let everyone else in the space know how they are feeling that day. A place where you can create safe spaces with the people you care about the most, where every day you can instantly see how they are feeling that day. Each user can instantly update their status quite literally with one simple tap.",
+      "screenshot": "https://www.tentwenty.me/application/files/7815/9402/3126/HomePage-min.jpg",
+      "content": {
+        "sections": [
+          {
+            "title": "Update Status",
+            "description": "For friends and families spread across the world in different time zones, to friends and families who are in the same city or on the same street, this app makes it easy to know how everyone is feeling that day.",
+            "photo": "https://www.tentwenty.me/application/files/cache/b602f7ef640ad738d651e47d0a12c211.jpg"
+          },
+          {
+            "title": "We all care",
+            "description": "Our vision is a simple one - connecting people and asking that beautiful, basic question, “how are you?”.",
+            "video": "https://www.tentwenty.me/application/files/cache/1f27cbf9e0cc16643c97b436f1a699d6.jpg"
+          }
+        ]
+      },
+      "mask": {
+        "color": "#F13D5B",
+        "photo": "https://www.tentwenty.me/application/files/6315/9402/4052/Macbook.png"
+      },
+      "footer": {
+        "title": "Live Website",
+        "links": [
+          {
+            "text": "whocares.app",
+            "href": "https://whocares.app"
+          }
+        ]
+      }
+    }
+  ]
+}

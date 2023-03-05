@@ -1,4 +1,5 @@
 import React from "react";
+import { zIndex } from "../../config";
 import MenuContext from "../context/MenuContext";
 import useMenu from "../useMenu";
 
@@ -42,17 +43,20 @@ export default function MenuBurgerComponent() {
       <button
         id="MenuBurger"
         aria-hidden="true"
-        className="p-4 space-y-2 group"
+        className="space-y-2 group fixed top-8 right-8"
         onClick={onClickMenuButton}
+        style={{
+          zIndex: zIndex.MENU_HEADER_SHOWN,
+        }}
       >
         <span
-          className={`block transition-all duration-200 w-8 h-0.5 shadow ${commonClassName} ${upperSliceClassName}`}
+          className={`block transition-all duration-200 w-8 h-[2px] shadow ${commonClassName} ${upperSliceClassName}`}
         ></span>
         <span
-          className={`block transition-all duration-200 w-6 h-0.5 shadow ${commonClassName} ${pattyClassName}`}
+          className={`block transition-all duration-200 w-6 h-[2px] shadow ${commonClassName} ${pattyClassName}`}
         ></span>
         <span
-          className={`block transition-all duration-200 w-8 h-0.5 shadow ${commonClassName} ${lowerSliceClassName}`}
+          className={`block transition-all duration-200 w-8 h-[2px] shadow ${commonClassName} ${lowerSliceClassName}`}
         ></span>
       </button>
     </>

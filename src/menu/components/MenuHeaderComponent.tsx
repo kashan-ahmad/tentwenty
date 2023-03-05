@@ -12,17 +12,18 @@ export default function MenuHeaderComponent() {
     : "/images/logo-black.png";
 
   return (
-    <header
-      style={{
-        zIndex: zIndex.MENU_HEADER_SHOWN,
-      }}
-      data-is-expanded={isMenuExpanded}
-      className="fixed w-screen top-0 left-0 p-8 flex items-center justify-between"
-    >
-      <Link to="/" id="MenuLogo" className="w-28">
+    <>
+      <Link
+        to="/"
+        id="MenuLogo"
+        className="w-28 fixed top-8 left-8"
+        style={{
+          zIndex: zIndex.MENU_HEADER_SHOWN,
+        }}
+      >
         <img src={logoSrc} alt="" className="w-full" />
       </Link>
       <MenuBurgerComponent />
-    </header>
+    </>
   );
 }

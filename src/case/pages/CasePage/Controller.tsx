@@ -10,8 +10,8 @@ import { CaseData, CaseTab } from "../../Case";
 import useCases from "../../useCases";
 
 type ReturnType = CaseData & {
-  activeTab: CaseTab;
-  setActiveTab: (tab: CaseTab["name"]) => unknown;
+  activeTabIndex: number;
+  setActiveTabIndex: (index: number) => unknown;
 };
 
 type Props = {
@@ -24,11 +24,12 @@ export default function Controller({ children }: Props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [requestState, setRequestState] = useState<RequestState>("loading");
 
-  const { getCaseData } = useCases();
-  const navigate = useNavigateWithAnimation();
+  // The first tab of the data will always be the default active tab.
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
 
-  // Default selected tab is always the first one.
-  const { slug, tab: tabParam = data?.tabs[0].name } = useParams();
+  // Hooks.
+  const { slug } = useParams();
+  const { getCaseData } = useCases();
 
   // Only whocares is allowed for now.
   const isAllowedSlug = slug && slug === "whocares";
@@ -62,7 +63,7 @@ export default function Controller({ children }: Props) {
 
   return children({
     ...data!,
-    activeTab: data!.tabs.find((tab) => tab.name === tabParam)!,
-    setActiveTab: (tab) => navigate(`/cases/${slug}/${tab}`),
+    activeTabIndex,
+    setActiveTabIndex: (i) => setActiveTabIndex(i),
   });
 }

@@ -7,9 +7,9 @@ export type RequestState = "loading" | "loaded" | "erred";
 
 export type Animator = (
   /**
-   * The selector for the element(s) to animate.
+   * The selector for the element(s), or the elements themselves, to animate.
    */
-  selector: string,
+  selector: string | Element | HTMLElement,
 
   /**
    * The timeline to use, creates a new timeline if not provided.

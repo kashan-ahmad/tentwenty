@@ -22,12 +22,6 @@ const router = createBrowserRouter([
       {
         path: "cases/:slug",
         element: <CasePage />,
-        children: [
-          {
-            path: ":tab",
-            element: <CasePage />,
-          },
-        ],
       },
     ],
   },

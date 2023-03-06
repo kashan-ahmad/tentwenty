@@ -1,33 +1,16 @@
 import gsap from "gsap";
 import React from "react";
 import Controller from "./Controller";
-import { locoOptions } from "../../../config";
-import LocomotiveScroll from "locomotive-scroll";
 import AnimatedLayout from "../../../animations/AnimatedLayout";
+import { slideIn, slideOut } from "../../../animations/animations";
 
 type Props = {};
 
+const tl = gsap.timeline();
+
 export default function CasePage({}: Props) {
+  // Effect: The animation timeline.
   React.useEffect(() => {
-    // Effect: The animation timeline.
-    function startAnimation(element: Element) {
-      const tl = gsap.timeline();
-
-      tl.to("main", {
-        y: 0,
-        opacity: 1,
-      });
-    }
-
-    // Effect: Integrate locomotive scroll.
-    function setupScroll(element: Element) {
-      new LocomotiveScroll({
-        ...locoOptions,
-        direction: "vertical",
-        el: element as HTMLElement,
-      });
-    }
-
     // Find the element to apply methods on and keep finding unless found.
     const elementFindInterval = setInterval(() => {
       const mainElement = document.querySelector("main");
@@ -35,8 +18,10 @@ export default function CasePage({}: Props) {
       if (!mainElement) return;
 
       // When found
-      startAnimation(mainElement);
-      setupScroll(mainElement);
+      slideIn(mainElement, tl, () => {
+        // Slide the tabs in.
+        slideIn("#tabs article");
+      });
 
       // Cancel the interval and move on with your life.
       clearInterval(elementFindInterval);
@@ -45,14 +30,23 @@ export default function CasePage({}: Props) {
     return () => clearInterval(elementFindInterval);
   }, []);
 
+  function onSetTabListener<T>(setter: (value: T) => unknown, value: T) {
+    const tabsElement = document.querySelector("#tabs article")!;
+
+    document.querySelector("#tabs")!.scrollIntoView();
+
+    // When found
+    slideOut(tabsElement, tl, () => {
+      setter(value);
+      slideIn(tabsElement);
+    });
+  }
+
   return (
     <AnimatedLayout>
       <Controller>
-        {({ header, hero, meta, tabs, activeTab, setActiveTab }) => (
-          <main
-            data-scroll-container
-            className="opacity-0 translate-y-40 max-h-screen overflow-y-auto overflow-x-hidden"
-          >
+        {({ header, hero, meta, tabs, activeTabIndex, setActiveTabIndex }) => (
+          <main className="opacity-0 translate-y-40 max-h-screen overflow-y-auto overflow-x-hidden scroll-smooth">
             {/* Header */}
             <header id="header" className="relative w-screen h-screen">
               {/* Header video */}
@@ -130,16 +124,16 @@ export default function CasePage({}: Props) {
                 </div>
               </section>
             </div>
-            <section id="tabs" className="relative">
+            <section id="tabs" className="relative bg-neutral-200">
               {/* Section Header */}
               {tabs.length > 1 && (
-                <header className="pt-8 sm:pt-24 bg-neutral-200 flex gap-8 justify-center">
+                <header className="pt-8 sm:pt-24 flex gap-8 justify-center">
                   {tabs.map((tab, i) => (
                     <button
                       key={i}
-                      onClick={() => setActiveTab(tab.name)}
+                      onClick={() => onSetTabListener(setActiveTabIndex, i)}
                       className={`pb-2 border-b-[1px] font-normal text-lg ${
-                        activeTab.name === tab.name
+                        tabs[activeTabIndex].name === tab.name
                           ? " border-black text-black"
                           : "border-transparent text-neutral-600"
                       }`}
@@ -149,14 +143,14 @@ export default function CasePage({}: Props) {
                   ))}
                 </header>
               )}
-              <article>
+              <article className="opacity-0 translate-y-40">
                 {/* Tab Video */}
                 <section className="p-8 sm:px-32 sm:py-24 bg-neutral-200">
                   <div className="max-w-4xl mx-auto">
                     <video
                       loop
                       autoPlay
-                      src={activeTab.video}
+                      src={tabs[activeTabIndex].video}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -164,7 +158,7 @@ export default function CasePage({}: Props) {
                 {/* Tab Description */}
                 <section className="p-8 sm:px-32 sm:py-24 grid place-items-center">
                   <p className="text-xl font-normal leading-relaxed max-w-xl">
-                    {activeTab.description}
+                    {tabs[activeTabIndex].description}
                   </p>
                 </section>
                 {/* Tab Screenshot */}
@@ -176,41 +170,43 @@ export default function CasePage({}: Props) {
                 >
                   <div className="max-w-3xl mx-auto">
                     <img
-                      src={activeTab.screenshot}
+                      src={tabs[activeTabIndex].screenshot}
                       className="w-full h-full object-contain"
                     />
                   </div>
                 </section>
                 {/* Tab Content */}
                 <section className="p-8 sm:px-32 sm:py-24">
-                  {(activeTab.content.title ||
-                    activeTab.content.paragraphs) && (
+                  {(tabs[activeTabIndex].content.title ||
+                    tabs[activeTabIndex].content.paragraphs) && (
                     <div className="max-w-xl mx-auto flex flex-col items-start gap-8">
                       {/* Tab Title */}
-                      {activeTab.content.title && (
+                      {tabs[activeTabIndex].content.title && (
                         <span className="pb-4 border-b-2 border-neutral-600 text-neutral-600 uppercase tracking-wider text-sm">
-                          {activeTab.content.title}
+                          {tabs[activeTabIndex].content.title}
                         </span>
                       )}
                       {/* Tab Tagline */}
-                      {activeTab.content.tagLine && (
+                      {tabs[activeTabIndex].content.tagLine && (
                         <span className="text-2xl sm:text-3xl">
-                          {activeTab.content.tagLine}
+                          {tabs[activeTabIndex].content.tagLine}
                         </span>
                       )}
                       {/* Tab Paragraphs */}
-                      {activeTab.content.paragraphs?.map((paragraph, i) => (
-                        <p key={i} className="text-lg font-normal">
-                          {paragraph}
-                        </p>
-                      ))}
+                      {tabs[activeTabIndex].content.paragraphs?.map(
+                        (paragraph, i) => (
+                          <p key={i} className="text-lg font-normal">
+                            {paragraph}
+                          </p>
+                        )
+                      )}
                     </div>
                   )}
                 </section>
                 {/* Tab Sections */}
                 <section className="p-4 sm:p-8 lg:p-20">
                   <div className="max-w-6xl mx-auto flex flex-col gap-32">
-                    {activeTab.content.sections.map((section, i) => (
+                    {tabs[activeTabIndex].content.sections.map((section, i) => (
                       <div
                         key={i}
                         className={`flex flex-col gap-8 md:gap-16 sm:items-center ${
@@ -232,7 +228,15 @@ export default function CasePage({}: Props) {
                             </video>
                           </div>
                         ) : (
-                          section.photo && <img alt="" src={section.photo} />
+                          section.photo && (
+                            <div className="w-full">
+                              <img
+                                alt=""
+                                src={section.photo}
+                                className="w-full h-full object-contain"
+                              />
+                            </div>
+                          )
                         )}
                         {/* Section text */}
                         <div className="w-full flex flex-col gap-8 px-8 py-4 sm:p-0">
@@ -251,7 +255,7 @@ export default function CasePage({}: Props) {
                 <section>
                   <img
                     alt=""
-                    src={activeTab.mask.photo}
+                    src={tabs[activeTabIndex].mask.photo}
                     className="w-full h-full object-contain"
                   />
                 </section>
@@ -260,11 +264,11 @@ export default function CasePage({}: Props) {
                   <div className="flex flex-col items-center gap-8">
                     {/* Footer Title */}
                     <span className="uppercase tracking-wider text-neutral-600">
-                      {activeTab.footer.title}
+                      {tabs[activeTabIndex].footer.title}
                     </span>
                     {/* Footer Links */}
                     <div className="flex gap-8">
-                      {activeTab.footer.links.map((link, i) => (
+                      {tabs[activeTabIndex].footer.links.map((link, i) => (
                         <a
                           key={i}
                           href={link.href}

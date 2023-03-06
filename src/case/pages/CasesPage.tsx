@@ -3,8 +3,8 @@ import { locoOptions } from "../../config";
 import CaseComponent from "../components/CaseComponent";
 import { Navigate, useLocation } from "react-router-dom";
 import AnimatedLayout from "../../animations/AnimatedLayout";
-import CaseDescriptiveComponent from "../components/CaseDescriptiveComponent";
 import LocomotiveScroll, { Direction } from "locomotive-scroll";
+import CaseDescriptiveComponent from "../components/CaseDescriptiveComponent";
 
 // Types.
 import type { Case } from "../Case";

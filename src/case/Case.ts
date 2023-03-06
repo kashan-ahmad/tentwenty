@@ -26,7 +26,7 @@ export interface CaseLink {
 export interface CaseMeta {
   color: string;
   client: string;
-  deliverables: string;
+  deliverable: string;
   links: CaseLink[];
 }
 

@@ -1,29 +1,39 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { fadeOut } from "../../../animations/animations";
+import useNavigateWithAnimation from "../../../animations/useNavigateWithAnimation";
 import ComingSoon from "../../../components/ComingSoon";
 import Error from "../../../components/Error";
 import Loader from "../../../components/Loader";
 import { RequestState } from "../../../types";
-import { CaseData } from "../../Case";
+import { CaseData, CaseTab } from "../../Case";
 import useCases from "../../useCases";
 
+type ReturnType = CaseData & {
+  activeTab: CaseTab;
+  setActiveTab: (tab: CaseTab["name"]) => unknown;
+};
+
 type Props = {
-  children: (data: CaseData) => JSX.Element;
+  children: (data: ReturnType) => JSX.Element;
 };
 
 export default function Controller({ children }: Props) {
-  const { slug } = useParams();
-  const { getCaseData } = useCases();
-
-  // Only whocares is allowed for now.
-  const isAllowedSlug = slug && slug === "whocares";
-
   // Local request state.
   const [data, setData] = useState<CaseData>();
   const [errorMessage, setErrorMessage] = useState("");
   const [requestState, setRequestState] = useState<RequestState>("loading");
 
+  const { getCaseData } = useCases();
+  const navigate = useNavigateWithAnimation();
+
+  // Default selected tab is always the first one.
+  const { slug, tab: tabParam = data?.tabs[0].name } = useParams();
+
+  // Only whocares is allowed for now.
+  const isAllowedSlug = slug && slug === "whocares";
+
+  // Effect: Fetch case data.
   React.useEffect(() => {
     if (!isAllowedSlug) return;
 
@@ -46,9 +56,13 @@ export default function Controller({ children }: Props) {
 
   if (!isAllowedSlug) return <ComingSoon />;
 
-  return {
-    erred: <Error message={errorMessage} />,
-    loading: <Loader />,
-    loaded: children(data!),
-  }[requestState];
+  if (requestState === "erred") return <Error message={errorMessage} />;
+
+  if (requestState === "loading") return <Loader />;
+
+  return children({
+    ...data!,
+    activeTab: data!.tabs.find((tab) => tab.name === tabParam)!,
+    setActiveTab: (tab) => navigate(`/cases/${slug}/${tab}`),
+  });
 }

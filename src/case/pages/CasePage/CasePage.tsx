@@ -1,16 +1,60 @@
+import gsap from "gsap";
 import React from "react";
 import Controller from "./Controller";
+import { locoOptions } from "../../../config";
+import LocomotiveScroll from "locomotive-scroll";
 import AnimatedLayout from "../../../animations/AnimatedLayout";
 
 type Props = {};
 
 export default function CasePage({}: Props) {
+  React.useEffect(() => {
+    // Effect: The animation timeline.
+    function startAnimation(element: Element) {
+      const tl = gsap.timeline();
+
+      tl.to("main", {
+        y: 0,
+        opacity: 1,
+      });
+    }
+
+    // Effect: Integrate locomotive scroll.
+    function setupScroll(element: Element) {
+      new LocomotiveScroll({
+        ...locoOptions,
+        direction: "vertical",
+        el: element as HTMLElement,
+      });
+    }
+
+    // Find the element to apply methods on and keep finding unless found.
+    const elementFindInterval = setInterval(() => {
+      const mainElement = document.querySelector("main");
+
+      if (!mainElement) return;
+
+      // When found
+      startAnimation(mainElement);
+      setupScroll(mainElement);
+
+      // Cancel the interval and move on with your life.
+      clearInterval(elementFindInterval);
+    }, 1000);
+
+    return () => clearInterval(elementFindInterval);
+  }, []);
+
   return (
     <AnimatedLayout>
       <Controller>
-        {({ header, hero, meta, tabs }) => (
-          <main>
-            <section id="header" className="relative w-screen h-screen">
+        {({ header, hero, meta, tabs, activeTab, setActiveTab }) => (
+          <main
+            data-scroll-container
+            className="opacity-0 translate-y-40 max-h-screen overflow-y-auto overflow-x-hidden"
+          >
+            {/* Header */}
+            <header id="header" className="relative w-screen h-screen">
               {/* Header video */}
               <div className="h-full">
                 {header.video ? (
@@ -27,21 +71,243 @@ export default function CasePage({}: Props) {
                 {header.title}
               </div>
               {/* Scroll down button */}
-              <button className="absolute bottom-8 transition-all left-1/2 -translate-x-50 text-6xl text-white hover:bottom-4 focus:bottom-4">
-                <div className="sr-only">Scroll down</div>
-                &#8595;
-              </button>
+              <a
+                href="#hero"
+                className="absolute transition-all duration-300 left-1/2 -translate-x-1/2 text-white bottom-8 hover:bottom-6 focus:bottom-4"
+              >
+                <span className="sr-only">Scroll down</span>
+                <span aria-hidden="true" className="text-6xl">
+                  &#8595;
+                </span>
+              </a>
+            </header>
+            {/* Hero & Meta */}
+            <div className="flex flex-col md:flex-row">
+              <section
+                id="hero"
+                className="relative self-stretch md:w-3/5 p-8 sm:py-32 sm:px-24 grid place-items-center"
+                style={{
+                  backgroundColor: meta.color,
+                }}
+              >
+                <p className="text-white text-xl xl:text-3xl font-normal leading-relaxed max-w-xl">
+                  {hero.tagLine}
+                </p>
+              </section>
+              <section
+                id="meta"
+                className="relative self-stretch md:w-2/5 p-8 sm:py-32 sm:px-24 flex flex-col justify-center gap-8 text-neutral-600 font-normal text-xs xl:text-lg"
+              >
+                <div className="flex flex-col gap-4">
+                  <span className="uppercase font-medium tracking-wider">
+                    Client
+                  </span>
+                  <span>{meta.client}</span>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <span className="uppercase font-medium tracking-wider">
+                    Deliverables
+                  </span>
+                  <span>{meta.deliverable}</span>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <span className="uppercase font-medium tracking-wider">
+                    Live Website
+                  </span>
+                  <div className="flex gap-4">
+                    {meta.links.map((link, i) => (
+                      <a
+                        key={i}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="pb-2 border-b-[1px] border-black"
+                      >
+                        {link.text}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            </div>
+            <section id="tabs" className="relative">
+              {/* Section Header */}
+              {tabs.length > 1 && (
+                <header className="pt-8 sm:pt-24 bg-neutral-200 flex gap-8 justify-center">
+                  {tabs.map((tab, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveTab(tab.name)}
+                      className={`pb-2 border-b-[1px] font-normal text-lg ${
+                        activeTab.name === tab.name
+                          ? " border-black text-black"
+                          : "border-transparent text-neutral-600"
+                      }`}
+                    >
+                      {tab.name}
+                    </button>
+                  ))}
+                </header>
+              )}
+              <article>
+                {/* Tab Video */}
+                <section className="p-8 sm:px-32 sm:py-24 bg-neutral-200">
+                  <div className="max-w-4xl mx-auto">
+                    <video
+                      loop
+                      autoPlay
+                      src={activeTab.video}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </section>
+                {/* Tab Description */}
+                <section className="p-8 sm:px-32 sm:py-24 grid place-items-center">
+                  <p className="text-xl font-normal leading-relaxed max-w-xl">
+                    {activeTab.description}
+                  </p>
+                </section>
+                {/* Tab Screenshot */}
+                <section
+                  className="p-8 sm:px-32 sm:py-24 grid place-items-center"
+                  style={{
+                    backgroundColor: meta.color,
+                  }}
+                >
+                  <div className="max-w-3xl mx-auto">
+                    <img
+                      src={activeTab.screenshot}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </section>
+                {/* Tab Content */}
+                <section className="p-8 sm:px-32 sm:py-24">
+                  {(activeTab.content.title ||
+                    activeTab.content.paragraphs) && (
+                    <div className="max-w-xl mx-auto flex flex-col items-start gap-8">
+                      {/* Tab Title */}
+                      {activeTab.content.title && (
+                        <span className="pb-4 border-b-2 border-neutral-600 text-neutral-600 uppercase tracking-wider text-sm">
+                          {activeTab.content.title}
+                        </span>
+                      )}
+                      {/* Tab Tagline */}
+                      {activeTab.content.tagLine && (
+                        <span className="text-2xl sm:text-3xl">
+                          {activeTab.content.tagLine}
+                        </span>
+                      )}
+                      {/* Tab Paragraphs */}
+                      {activeTab.content.paragraphs?.map((paragraph, i) => (
+                        <p key={i} className="text-lg font-normal">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                </section>
+                {/* Tab Sections */}
+                <section className="p-4 sm:p-8 lg:p-20">
+                  <div className="max-w-6xl mx-auto flex flex-col gap-32">
+                    {activeTab.content.sections.map((section, i) => (
+                      <div
+                        key={i}
+                        className={`flex flex-col gap-8 md:gap-16 sm:items-center ${
+                          i % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"
+                        }`}
+                      >
+                        {/* Section Video */}
+                        {section.video ? (
+                          <div className="w-full">
+                            <video
+                              loop
+                              autoPlay
+                              className="w-full h-full object-cover"
+                            >
+                              <source src={section.video} />
+                              {section.photo && (
+                                <img alt="" src={section.photo} />
+                              )}
+                            </video>
+                          </div>
+                        ) : (
+                          section.photo && <img alt="" src={section.photo} />
+                        )}
+                        {/* Section text */}
+                        <div className="w-full flex flex-col gap-8 px-8 py-4 sm:p-0">
+                          <span className="text-2xl sm:text-3xl lg:text-4xl">
+                            {section.title}
+                          </span>
+                          <p className="text-lg sm:text-xl lg:text-2xl font-normal lg:pr-16 lg:!leading-loose">
+                            {section.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+                {/* Tab Mask */}
+                <section>
+                  <img
+                    alt=""
+                    src={activeTab.mask.photo}
+                    className="w-full h-full object-contain"
+                  />
+                </section>
+                {/* Tab Footer */}
+                <section className="p-16 sm:px-32 sm:py-20">
+                  <div className="flex flex-col items-center gap-8">
+                    {/* Footer Title */}
+                    <span className="uppercase tracking-wider text-neutral-600">
+                      {activeTab.footer.title}
+                    </span>
+                    {/* Footer Links */}
+                    <div className="flex gap-8">
+                      {activeTab.footer.links.map((link, i) => (
+                        <a
+                          key={i}
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="pb-2 border-b-[1px] border-black font-normal sm:text-2xl"
+                        >
+                          {link.text}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </section>
+              </article>
             </section>
-            <section
-              id="hero"
-              className="relative p-8"
-              style={{
-                backgroundColor: meta.color,
-              }}
-            ></section>
-            <section id="meta" className="relative"></section>
-            <section id="tabs" className="relative"></section>
-            <section id="footer" className="relative"></section>
+            <footer id="footer" className="relative">
+              {/* Quote Section */}
+              <a
+                target="blank"
+                rel="noreferrer"
+                href="https://www.tentwenty.me/enquiry"
+                className="block p-16 sm:px-32 sm:py-20 bg-black text-white"
+              >
+                <div className="flex flex-col gap-8 items-center">
+                  <span className="text-2xl sm:text-3xl lg:text-4xl">
+                    Get a quote?
+                  </span>
+                  <span className="uppercase tracking-wider flex items-center gap-4 sm:gap-8">
+                    Get in touch
+                    <span className="text-3xl">&#8594;</span>
+                  </span>
+                </div>
+              </a>
+              {/* Next Section */}
+              <div className="p-16 sm:px-32 sm:py-20 bg-neutral-900 text-white">
+                <div className="flex flex-col gap-8 items-center">
+                  <span className="uppercase tracking-wider">Next section</span>
+                  <span className="text-2xl sm:text-3xl lg:text-4xl">
+                    Coming soon
+                  </span>
+                </div>
+              </div>
+            </footer>
           </main>
         )}
       </Controller>
